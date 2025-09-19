@@ -1,0 +1,35 @@
+import sys
+import pygame
+from pygame.sprite import Group
+import os
+from  settings import Settings
+from ship import Ship
+import event_function as ef
+from alien import Alien
+
+
+
+
+def run_game():
+  pygame.init()
+  ai_settings=Settings()
+  screen=pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
+  pygame.display.set_caption("Alien Invasion")
+  ship=Ship(ai_settings,screen)
+  bullets=Group()
+  bg_color=(230,230,230)
+  alien=Alien(ai_settings,screen)
+
+  while True:
+    ef.check_event( ai_settings, screen, ship, bullets)
+    ef.update_screen(ai_settings, screen, ship, alien,bullets)
+    
+    ship.update()
+    bullets.update()
+    ef.update_screen(ai_settings, screen, ship, alien,bullets)
+    ef.update_screen(ai_settings, screen, ship,alien, bullets)
+
+
+
+
+run_game()
